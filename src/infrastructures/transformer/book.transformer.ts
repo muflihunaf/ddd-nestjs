@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBookDto } from 'src/domain/book/dto/create-book.dto';
 import { UpdateBookDto } from 'src/domain/book/dto/updated-book.dto';
-import { Book } from 'src/domain/book/model/book.model';
+import { Book } from '../../domain/book/model/book.model';
 
 @Injectable()
 export class DtoToModelTransformer {

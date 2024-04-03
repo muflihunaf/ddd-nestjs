@@ -5,7 +5,7 @@ import { BookRepository } from '../repositories/book.repository';
 import { Book } from '../model/book.model';
 import { CreateBookDto } from '../dto/create-book.dto';
 import { UpdateBookDto } from '../dto/updated-book.dto';
-import { DtoToModelTransformer } from 'src/infrastructures/transformer/book.transformer';
+import { DtoToModelTransformer } from '../../../infrastructures/transformer/book.transformer';
 import { isValidObjectId } from 'mongoose';
 
 @Injectable()
@@ -36,14 +36,16 @@ export class BookService {
       }
       return book;
     } catch (error) {
-      console.error('Failed to fetch book by ID:', error);
-      throw new Error('Failed to fetch book by ID: ' + error.message);
+      throw new NotFoundException(
+        'Failed to fetch book by ID: ' + error.message,
+      );
     }
   }
 
   async createBook(book: CreateBookDto): Promise<Book> {
     try {
-      const newBook = await this.bookRepository.create(book);
+      const bookDto = this.transformer.transformCreateBookDtoToBook(book);
+      const newBook = await this.bookRepository.create(bookDto);
       return newBook;
     } catch (error) {
       throw new Error('Failed to create book: ' + error.message);
@@ -72,9 +74,10 @@ export class BookService {
       return savedBook;
     } catch (error) {
       // Tangani kesalahan yang terjadi selama proses
-      console.error('Failed to update book:', error);
       // Kembalikan null jika terjadi kesalahan
-      return null;
+      throw new NotFoundException(
+        'Failed to fetch book by ID: ' + error.message,
+      );
     }
   }
 

@@ -7,4 +7,5 @@ export interface BookRepository {
   create(book: Book): Promise<Book>;
   update(id: string, book: Book): Promise<Book | null>;
   delete(id: string): Promise<Book | null>;
+  updateBookStatus(bookId: string, status: boolean): Promise<Book | null>;
 }

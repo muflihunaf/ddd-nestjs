@@ -7,15 +7,6 @@ export type MemberDocument = Member & Document;
 
 @Schema()
 export class Member {
-  @Prop({
-    type: String,
-    unique: true,
-    default: function genUUID() {
-      return uuid();
-    },
-  })
-  _id: string;
-
   @ApiProperty()
   @Prop()
   code: string;
@@ -23,6 +14,12 @@ export class Member {
   @ApiProperty()
   @Prop()
   name: string;
+
+  @Prop({ default: false })
+  isPenalized: boolean;
+
+  @Prop({ default: 0 })
+  penalizeEndDate: Date;
 }
 
 export const MemberSchema = SchemaFactory.createForClass(Member);

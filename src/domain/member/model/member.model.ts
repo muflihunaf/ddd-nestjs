@@ -1,14 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Document } from 'mongoose';
-import { v4 as uuid } from 'uuid';
 
 export type MemberDocument = Member & Document;
 
 @Schema()
 export class Member {
   @ApiProperty()
-  @Prop()
+  @Prop({ unique: true, required: true, type: String })
   code: string;
 
   @ApiProperty()

@@ -23,7 +23,6 @@ export class MongooseBookRepository implements BookRepository {
   }
 
   async update(id: string, book: Book): Promise<Book | null> {
-    console.log(book);
     return this.bookModel
       .findByIdAndUpdate({ _id: id }, book, { new: true })
       .exec();

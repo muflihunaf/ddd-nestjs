@@ -7,7 +7,7 @@ export type BookDocument = Book & Document;
 @Schema()
 export class Book {
   @ApiProperty()
-  @Prop()
+  @Prop({ unique: true })
   code: string;
 
   @ApiProperty()
@@ -23,7 +23,7 @@ export class Book {
   stock: number;
 
   @Prop({ default: true })
-  isAvailable: number;
+  isAvailable: boolean;
 }
 
 // Deklarasikan BookSchema sebelum penggunaannya

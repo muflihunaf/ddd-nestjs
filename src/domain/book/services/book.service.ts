@@ -82,6 +82,13 @@ export class BookService {
   }
 
   async deleteBook(id: string): Promise<Book | null> {
-    return this.bookRepository.delete(id);
+    try {
+      if (!isValidObjectId(id)) {
+        throw new NotFoundException('Invalid book ID');
+      }
+      return await this.bookRepository.delete(id);
+    } catch (err) {
+      throw new Error('Failed to delete book. ' + err.message);
+    }
   }
 }

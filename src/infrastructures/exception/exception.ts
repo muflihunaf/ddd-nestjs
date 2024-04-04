@@ -30,7 +30,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
     };
 
     // Mencetak pesan kesalahan ke konsol
-    console.error(exception);
+    // console.error(exception);
 
     // Memberikan respons dengan objek JSON
     response.status(status).json(jsonResponse);

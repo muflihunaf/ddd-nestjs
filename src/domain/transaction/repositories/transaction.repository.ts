@@ -10,4 +10,8 @@ export interface TransactionRepository {
   returnBook(id: string): Promise<Transaction | null>;
   getBorrowedBooksCount(memberId: string): Promise<number | null>;
   addBorrowedBook(memberId: Member, bookId: Book): Promise<Transaction | null>;
+  findByFilter(filter: object): Promise<Transaction>;
+  updateTransaction(id: string, transaction: Transaction): Promise<Transaction>;
+  findBorrowedBookId(): Promise<string[]>;
+  findBorrowedBooksCountByMember(): Promise<Map<string, number>>;
 }

@@ -17,6 +17,14 @@ export class MongooseTransactionRepository implements TransactionRepository {
     @InjectModel(Transaction.name)
     private transactionModel: Model<TransactionDocument>,
   ) {}
+  updateTransaction(
+    id: string,
+    transaction: Transaction,
+  ): Promise<Transaction> {
+    return this.transactionModel
+      .findByIdAndUpdate({ _id: id }, transaction, { new: true })
+      .exec();
+  }
   getBorrowedBooksCount(memberId: string): Promise<number> {
     return this.transactionModel
       .find({ member: memberId })
@@ -43,7 +51,11 @@ export class MongooseTransactionRepository implements TransactionRepository {
   }
 
   async findByMember(id: string): Promise<Transaction[]> {
-    return this.transactionModel.find({ member: id }).exec();
+    return this.transactionModel
+      .find({ member: id })
+      .populate('member')
+      .populate('book')
+      .exec();
   }
   async returnBook(id: string): Promise<Transaction> {
     return this.transactionModel.findByIdAndUpdate(
@@ -59,5 +71,42 @@ export class MongooseTransactionRepository implements TransactionRepository {
       .populate('member')
       .populate('book')
       .exec();
+  }
+
+  async findByFilter(filter: object): Promise<Transaction> {
+    return this.transactionModel
+      .findOne(filter)
+      .populate('member')
+      .populate('book')
+      .exec();
+  }
+
+  async findBorrowedBookId(): Promise<string[]> {
+    const transactions = await this.transactionModel
+      .find({ isReturned: false })
+      .populate('book')
+      .exec();
+    return transactions.map((transaction) => transaction.book.code);
+  }
+
+  async findBorrowedBooksCountByMember(): Promise<Map<string, number>> {
+    const transactions = await this.transactionModel
+      .find({ isReturned: false })
+      .populate('member')
+      .exec();
+    const borrowedBooksCountByMember = new Map<string, number>();
+
+    transactions.forEach((transaction) => {
+      if (borrowedBooksCountByMember.has(transaction.member.code)) {
+        borrowedBooksCountByMember.set(
+          transaction.member.code,
+          borrowedBooksCountByMember.get(transaction.member.code) + 1,
+        );
+      } else {
+        borrowedBooksCountByMember.set(transaction.member.code, 1);
+      }
+    });
+
+    return borrowedBooksCountByMember;
   }
 }

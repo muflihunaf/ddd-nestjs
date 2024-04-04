@@ -6,12 +6,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { BookModule } from './modules/book/book.module';
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from './infrastructures/exception/exception';
+import { MemberModule } from './modules/member/member.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGODB_URI),
     BookModule,
+    MemberModule,
   ],
   providers: [
     {

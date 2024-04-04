@@ -15,6 +15,11 @@ export class Book {
     },
   })
   _id: string;
+
+  @ApiProperty()
+  @Prop()
+  code: string;
+
   @ApiProperty()
   @Prop()
   title: string;
@@ -25,12 +30,7 @@ export class Book {
 
   @ApiProperty()
   @Prop()
-  pages: number;
-
-  // Field baru dengan dokumentasi Swagger
-  @ApiProperty()
-  @Prop()
-  year: number;
+  stock: number;
 }
 
 // Deklarasikan BookSchema sebelum penggunaannya

@@ -4,6 +4,11 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, IsInt, Min } from 'class-validator';
 
 export class CreateBookDto {
+  @ApiProperty({ description: 'Code' })
+  @IsNotEmpty()
+  @IsString()
+  code: string;
+
   @ApiProperty({ description: 'The title of the book' })
   @IsNotEmpty()
   @IsString()
@@ -18,11 +23,5 @@ export class CreateBookDto {
   @IsNotEmpty()
   @IsInt()
   @Min(1)
-  pages: number;
-
-  @ApiProperty({ description: 'The year the book was published' })
-  @IsNotEmpty()
-  @IsInt()
-  @Min(1000)
-  year: number;
+  stock: number;
 }

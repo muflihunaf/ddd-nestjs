@@ -15,22 +15,22 @@ describe('BookService', () => {
     _id: '660cf04ec5512c7d81f1aa13',
     title: 'Test Book',
     author: 'Test Author',
-    pages: 200,
-    year: 2022,
+    stock: 200,
+    code: 'TEST-123',
   };
 
   const mockCreateBookDto: CreateBookDto = {
     title: 'Test Book',
     author: 'Test Author',
-    pages: 200,
-    year: 2022,
+    stock: 200,
+    code: 'TEST-123',
   };
 
   const mockUpdateBookDto: UpdateBookDto = {
     title: 'Updated Test Book',
     author: 'Updated Test Author',
-    pages: 250,
-    year: 2023,
+    stock: 200,
+    code: 'UPD-123',
   };
 
   const mockBookRepository = {
@@ -94,7 +94,10 @@ describe('BookService', () => {
 
   describe('updateBook', () => {
     it('should update a book', async () => {
-      const result = await service.updateBook('660cf04ec5512c7d81f1aa13', mockUpdateBookDto);
+      const result = await service.updateBook(
+        '660cf04ec5512c7d81f1aa13',
+        mockUpdateBookDto,
+      );
       expect(result).toEqual(mockBook);
     });
 

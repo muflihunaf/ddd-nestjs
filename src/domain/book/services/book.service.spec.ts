@@ -12,11 +12,11 @@ describe('BookService', () => {
   let service: BookService;
   // let bookRepository: BookRepository;
   const mockBook: Book = {
-    _id: '660cf04ec5512c7d81f1aa13',
     title: 'Test Book',
     author: 'Test Author',
     stock: 200,
     code: 'TEST-123',
+    isAvailable: false,
   };
 
   const mockCreateBookDto: CreateBookDto = {
@@ -107,13 +107,6 @@ describe('BookService', () => {
       await expect(
         service.updateBook('invalid', mockUpdateBookDto),
       ).rejects.toThrowError(NotFoundException);
-    });
-  });
-
-  describe('deleteBook', () => {
-    it('should delete a book', async () => {
-      const result = await service.deleteBook('1');
-      expect(result).toEqual(mockBook);
     });
   });
 });

@@ -9,10 +9,8 @@ import {
   Param,
   Body,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Book } from 'src/domain/book/model/book.model';
-import { CreateMemberDto } from 'src/domain/member/dto/create-member.dto';
-import { UpdateMemberDto } from 'src/domain/member/dto/updated-member.dto';
 import { Member } from 'src/domain/member/model/member.model';
 import { ReturnBookDto } from 'src/domain/transaction/dto/returnBook.dto';
 import { CreateTransactionDto } from 'src/domain/transaction/dto/transaction.dto';
@@ -25,26 +23,36 @@ export class TransactionController {
   constructor(private readonly transactionService: TransactionService) {}
 
   @Get()
+  @ApiResponse({ status: 200, description: 'Get All Transaction' })
   async getAllTransaction(): Promise<Transaction[]> {
     return this.transactionService.getAllTransaction();
   }
 
   @Get('availableBook')
+  @ApiResponse({
+    status: 200,
+    description: 'Get Available Book || status Book is not available',
+  })
   async getAvalilableBook(): Promise<Book[]> {
     return this.transactionService.getAvailableBooks();
   }
 
   @Get('member')
+  @ApiResponse({ status: 200, description: 'Get Member Who Borrow A Book' })
   async getMemberBorrow(): Promise<Member[]> {
     return this.transactionService.getAllMembersWithBorrowedBooks();
   }
 
   @Get(':id')
-  async getBookById(@Param('id') id: string): Promise<Transaction[] | null> {
+  @ApiResponse({ status: 200, description: 'Get Transaction By Id' })
+  async getTransactionById(
+    @Param('id') id: string,
+  ): Promise<Transaction[] | null> {
     return this.transactionService.getByMember(id);
   }
 
   @Post()
+  @ApiResponse({ status: 200, description: 'Create A Transaction' })
   async createTransaction(
     @Body() createTransactionDto: CreateTransactionDto,
   ): Promise<Transaction> {
@@ -52,6 +60,7 @@ export class TransactionController {
   }
 
   @Put(':id')
+  @ApiResponse({ status: 200, description: 'Return A Book' })
   async returnBook(
     @Param('id') id: string,
     @Body() returnBookDto: ReturnBookDto,

@@ -3,8 +3,8 @@ import { CreateBookDto } from 'src/domain/book/dto/create-book.dto';
 import { UpdateBookDto } from 'src/domain/book/dto/updated-book.dto';
 import { Book } from '../../domain/book/model/book.model';
 import { CreateMemberDto } from 'src/domain/member/dto/create-member.dto';
-import { Member } from 'src/domain/member/model/member.model';
-import { UpdateMemberDto } from 'src/domain/member/dto/updated-member.dto';
+import { Member } from '../../domain/member/model/member.model';
+import { UpdateMemberDto } from '../../domain/member/dto/updated-member.dto';
 
 @Injectable()
 export class DtoToModelTransformer {

@@ -9,7 +9,7 @@ import {
   Param,
   Body,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateMemberDto } from 'src/domain/member/dto/create-member.dto';
 import { UpdateMemberDto } from 'src/domain/member/dto/updated-member.dto';
 import { Member } from 'src/domain/member/model/member.model';
@@ -21,22 +21,28 @@ export class MemberController {
   constructor(private readonly memberService: MemberService) {}
 
   @Get()
-  async getAllBooks(): Promise<Member[]> {
+  @ApiResponse({ status: 200, description: 'Get All Member' })
+  async getAllMembers(): Promise<Member[]> {
     return this.memberService.getAllMember();
   }
 
   @Get(':id')
-  async getBookById(@Param('id') id: string): Promise<Member | null> {
+  @ApiResponse({ status: 200, description: 'Get Member By Id' })
+  async getMemberById(@Param('id') id: string): Promise<Member | null> {
     return this.memberService.getMemberById(id);
   }
 
   @Post()
-  async createBook(@Body() createMemberDto: CreateMemberDto): Promise<Member> {
+  @ApiResponse({ status: 201, description: 'Create Member' })
+  async createMember(
+    @Body() createMemberDto: CreateMemberDto,
+  ): Promise<Member> {
     return this.memberService.createMember(createMemberDto);
   }
 
   @Put(':id')
-  async updateBook(
+  @ApiResponse({ status: 200, description: 'Update Member' })
+  async updateMember(
     @Param('id') id: string,
     @Body() member: UpdateMemberDto,
   ): Promise<Member | null> {
@@ -44,7 +50,8 @@ export class MemberController {
   }
 
   @Delete(':id')
-  async deleteBook(@Param('id') id: string): Promise<Member | null> {
+  @ApiResponse({ status: 200, description: 'Delete Member' })
+  async deleteMember(@Param('id') id: string): Promise<Member | null> {
     return this.memberService.deleteMember(id);
   }
 }

@@ -15,7 +15,7 @@ import { TransactionModule } from './modules/transaction/transaction.module';
     MongooseModule.forRoot(process.env.MONGODB_URI),
     BookModule,
     MemberModule,
-    TransactionModule
+    TransactionModule,
   ],
   providers: [
     {

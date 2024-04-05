@@ -66,8 +66,8 @@ describe('MemberService', () => {
     });
   });
 
-  describe('getBookById', () => {
-    it('should return a book by ID', async () => {
+  describe('getMemberById', () => {
+    it('should return a Member by ID', async () => {
       const result = await service.getMemberById('660cf04ec5512c7d81f1aa13');
       expect(result).toEqual(mocMember);
     });
@@ -108,7 +108,7 @@ describe('MemberService', () => {
       expect(mockBookRepository.create).toHaveBeenCalledWith(newMember);
     });
 
-    describe('updateBook', () => {
+    describe('updateMember', () => {
       describe('updateMember', () => {
         it('should update a member', async () => {
           const memberId = '660cf04ec5512c7d81f1aa13';

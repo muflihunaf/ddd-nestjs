@@ -1,5 +1,3 @@
-// src/application/controllers/book.controller.ts
-
 import {
   Controller,
   Get,

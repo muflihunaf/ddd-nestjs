@@ -18,10 +18,10 @@ export class Transaction {
   isReturned: boolean;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Member' })
-  member: Member | string;
+  member: Member;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Book' })
-  book: Book | string;
+  book: Book;
 }
 
 export const TransactionSchema = SchemaFactory.createForClass(Transaction);

@@ -1,5 +1,3 @@
-// book/dto/create-book.dto.ts
-
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, IsInt, Min } from 'class-validator';
 
